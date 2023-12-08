@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import cors from 'cors';
-import { getUsers-ms } from '../controllers/users-msViaSupabase.js';
+import { getUsers } from '../controllers/usersViaSupabase.js';
 
 const router = express.Router();
 
@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
   res.json("it's working :3 ");
 });
 
-router.options('/users-ms', (req, res, next) => {
+router.options('/users', (req, res, next) => {
   try {
     res.header({
       allow: 'GET, POST, OPTIONS',
@@ -24,6 +24,6 @@ router.options('/users-ms', (req, res, next) => {
   }
 });
 
-router.get('/users-ms', cors(), getUsers-ms);
+router.get('/users', cors(), getUsers);
 
 export default router;

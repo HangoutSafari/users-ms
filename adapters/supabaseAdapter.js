@@ -7,8 +7,8 @@ const supabase = createClient(
   process.env.SUPABASE_KEY
 );
 
-export async function getUsers-msData() {
-  const { data, error } = await supabase.from('users-ms').select();
+export async function getUsersData() {
+  const { data, error } = await supabase.from('users').select();
   if (error) console.log('query error', error);
   else return data;
 }
