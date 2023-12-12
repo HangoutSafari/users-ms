@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import cors from 'cors';
-import { getUsers } from '../controllers/usersViaSupabase.js';
+import { getUsers, getUserId } from '../controllers/usersViaSupabase.js';
 
 const router = express.Router();
 
@@ -17,7 +17,6 @@ router.options('/users', (req, res, next) => {
       'Content-length': 0,
     });
 
-    // response
     res.sendStatus(200);
   } catch (err) {
     next(err);
@@ -25,5 +24,6 @@ router.options('/users', (req, res, next) => {
 });
 
 router.get('/users', cors(), getUsers);
+router.get('/users/:number', cors(), getUserId);
 
 export default router;
