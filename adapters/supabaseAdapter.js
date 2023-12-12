@@ -24,7 +24,7 @@ export async function getUserIdData(userId) {
     .single(); 
 
   if (error) {
-    console.error('query error', error);
+    return {id:null};
     throw error;
   }
 
