@@ -35,3 +35,18 @@ export async function getAnimalsByUserId(userId) {
 
   return data;
 }
+
+export async function getEventsByUserId(userId) {
+  const { data: eventIds, error} = await supabase.from('users-events').select('event_id').eq('user_id', userId);
+  if (error) {
+    console.error('query error', error);
+    throw error;
+  }
+  const { data: events, error: eventsError } = await supabase.from('events').select('*').in('id', eventIds.map(e => e.event_id));
+  if (eventsError) {
+    console.error('query error', eventsError);
+    throw eventsError;
+  }
+
+  return events;
+}
