@@ -1,4 +1,4 @@
-import { getUsersData, getUserIdData } from "../adapters/supabaseAdapter.js";
+import { getUsersData, getUserIdData, getAnimalsByUserId } from "../adapters/supabaseAdapter.js";
 
 export async function getUsers(req, res) {
   try {
@@ -14,6 +14,16 @@ export async function getUserId(req, res) {
     const UserId = parseInt(req.params.number);
     const users = await getUserIdData(UserId);
     res.json(users);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+}
+
+export async function getUserAnimals(req, res) {
+  try {
+    const userId = parseInt(req.params.userId);
+    const animals = await getAnimalsByUserId(userId);
+    res.json(animals);
   } catch (error) {
     res.status(500).send(error.message);
   }
