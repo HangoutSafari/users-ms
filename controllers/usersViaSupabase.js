@@ -1,7 +1,5 @@
-import { getUsersData, getUserIdData, postAuthDetails } from "../adapters/supabaseAdapter.js";
-import  express  from "express";
+import { getUsersData, getUserIdData, getAnimalsByUserId } from "../adapters/supabaseAdapter.js";
 
-express.use(cors());
 export async function getUsers(req, res) {
   try {
     const data = await getUsersData();
@@ -21,18 +19,12 @@ export async function getUserId(req, res) {
   }
 }
 
-export async function postAuthDetails(req, res) {
-       const userData = req.body;
-       console.log(userData);
-       console.log(userData);
-       console.log(userData);
-       console.log(userData);
-      return res.status(200).json({ message: "Registration successful", userData })
-      };
-
-
-    // Register user using Supabase Auth
-    // const { user, error } = await supabaseAuth.auth.signUp({
-    //   username,
-    //   email,
-    //   password,
+export async function getUserAnimals(req, res) {
+  try {
+    const userId = parseInt(req.params.userId);
+    const animals = await getAnimalsByUserId(userId);
+    res.json(animals);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+}
