@@ -1,4 +1,4 @@
-import { getUsersData, getUserIdData, getAnimalsByUserId } from "../adapters/supabaseAdapter.js";
+import { getUsersData, getUserIdData, getAnimalsByUserId, getFriendsForUser } from "../adapters/supabaseAdapter.js";
 
 export async function getUsers(req, res) {
   try {
@@ -25,6 +25,17 @@ export async function getUserAnimals(req, res) {
     const animals = await getAnimalsByUserId(userId);
     res.json(animals);
   } catch (error) {
+    res.status(500).send(error.message);
+  }
+}
+
+export async function getFriends(req,res){
+  try{
+    const userId =parseInt(req.params.userId);
+    const friends = await getFriendsForUser(userId);
+    const friendKey = Object.keys(friends.friends)
+    res.json(friendKey);
+  }catch(error){
     res.status(500).send(error.message);
   }
 }

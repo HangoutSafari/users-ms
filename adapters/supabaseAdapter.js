@@ -35,3 +35,13 @@ export async function getAnimalsByUserId(userId) {
 
   return data;
 }
+
+export async function getFriendsForUser(userId) {
+  const { data, error } = await supabase.from('users') .select('friends').eq('id',userId).single(); 
+  if (error) {
+    console.error('Error fetching animals', error);
+    throw error;
+  }
+
+  return data;
+}
