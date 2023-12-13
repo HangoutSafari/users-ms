@@ -30,11 +30,8 @@ export async function getUserAnimals(req, res) {
 }
 
 export async function postAuthDetails(req, res) {
-  const userData = req.body;
-  console.log(userData);
-  console.log(userData);
-  console.log(userData);
-  console.log(userData);
- return res.status(200).json({ message: "Registration successful", userData })
+  // console.log();
+  // const userData = req;
+ return res.status(200).json({ message: "Registration successful", requestBody: req.body })
  };
 
