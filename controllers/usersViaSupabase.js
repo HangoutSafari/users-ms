@@ -29,13 +29,24 @@ export async function getUserAnimals(req, res) {
   }
 }
 
-export async function getFriends(req,res){
-  try{
-    const userId =parseInt(req.params.userId);
-    const friends = await getFriendsForUser(userId);
-    const friendKey = Object.keys(friends.friends)
-    res.json(friendKey);
-  }catch(error){
+export async function getFriends(req, res) {
+  try {
+    const userId = parseInt(req.params.userId);
+    const friendsData = await getFriendsForUser(userId);
+    
+    console.log(friendsData.friends);
+    let detailedFriends = {'id':null}
+    if(friendsData.friends != null){
+
+      const friendKeys = Object.keys(friendsData.friends);
+      
+      detailedFriends = await Promise.all(
+        friendKeys.map(async (friendKey) => await getUserIdData(friendKey))
+        );
+      }
+     
+    res.json(detailedFriends);
+  } catch (error) {
     res.status(500).send(error.message);
   }
 }
