@@ -17,14 +17,19 @@ export async function getUsersData() {
 }
 
 export async function getUserIdData(userId) {
-  const { data, error } = await supabase
-    .from('users')
-    .select()
-    .eq('id', userId) 
-    .single(); 
-
+  const { data, error } = await supabase.from('users').select().eq('id', userId) .single(); 
   if (error) {
     console.error('query error', error);
+    throw error;
+  }
+
+  return data;
+}
+
+export async function getAnimalsByUserId(userId) {
+  const { data, error } = await supabase.from('animals') .select('*') .eq('user_id', userId); 
+  if (error) {
+    console.error('Error fetching animals', error);
     throw error;
   }
 

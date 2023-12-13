@@ -28,3 +28,13 @@ export async function getUserAnimals(req, res) {
     res.status(500).send(error.message);
   }
 }
+
+export async function postAuthDetails(req, res) {
+  const userData = req.body;
+  console.log(userData);
+  console.log(userData);
+  console.log(userData);
+  console.log(userData);
+ return res.status(200).json({ message: "Registration successful", userData })
+ };
+
