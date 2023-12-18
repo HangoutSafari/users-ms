@@ -9,7 +9,7 @@ const supabase = createClient(
 );
 
 test('Testing connection to database',async () => {
-  async function getEventsData() {
+  async function getUsersData() {
     const { data, error } = await supabase.from('users').select();
   expect(data).toBe(200)
   }
