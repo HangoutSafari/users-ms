@@ -35,3 +35,4 @@ export async function getAnimalsByUserId(userId) {
 
   return data;
 }
+export { supabase };
