@@ -1,4 +1,5 @@
 import { getUsersData, getUserIdData, getAnimalsByUserId } from "../adapters/supabaseAdapter.js";
+// import supabase  from "../adapters/supabaseAdapter.js";
 
 export async function getUsers(req, res) {
   try {
@@ -31,10 +32,15 @@ export async function getUserAnimals(req, res) {
 
 export async function postAuthDetails(req, res) {
   const userData = req.body;
-  console.log(userData);
-  console.log(userData);
-  console.log(userData);
-  console.log(userData);
- return res.status(200).json({ message: "Registration successful", userData })
+        // save data in db
+        const data = await supabase
+        .from("users")
+        .insert([
+          {
+            name: userData.username,
+          },
+        ])
+        res.status(200).json({ message: "Registration successful", userData })
+    return userData;
  };
 
