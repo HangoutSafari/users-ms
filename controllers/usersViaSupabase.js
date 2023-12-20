@@ -32,7 +32,7 @@ export async function postAuthDetails(req, res) {
   const userData = req.body;
   try{
     const value = await handleUser(userData)
-    res.status(200).json({ message: "Registration successful", data: value })
+    res.status(200).json({ message: "Registration successful", data: "Hard-coded" })
   }
   catch (err) {
     res.status(500).send("there was an error in signing up ", err.message);
