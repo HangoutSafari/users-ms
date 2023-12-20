@@ -1,14 +1,19 @@
-export async function signUserUp(supabase, email, password) {
-  // if (userNotInDb(supabase, username)){
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-      });
-      return data;
-    } catch (error) {
-      console.log("there was an error",error.message);
-  }}
+export async function signUserUp(supabase, email, password, username) {
+  const { data, error } = await supabase.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+      data: {
+        username: username,
+      },
+    },
+  });
+  if (error){     
+    console.error('query error', error);
+    throw error;
+  }
+  return data;
+}
   // else{
   //   console.log("user already exists")
   // }};

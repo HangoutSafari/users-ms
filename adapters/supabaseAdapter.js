@@ -40,19 +40,16 @@ export async function getAnimalsByUserId(userId) {
 export async function handleUser(userData) {
   const {username, email, password} = userData;
   // userNotInDb(supabase, username);
-  signUserUp(supabase, email, password);
-  const { data, error } = await supabase
-    .from('users')
-    .insert([
-      { id: 24,
-        name: username },
-    ])
-    .select()
-    if (error) {
-      console.error('Error fetching data', error);
-      throw error;
+  try {
+    const supabaseResponse = await signUserUp(supabase, email, password, username);
+    return supabaseResponse;
+  } 
+  catch (error)
+  {
+    console.error('query error', error);
+    throw error;
   }
-    return data;
-  };
+    
+};
 
 export { supabase };
