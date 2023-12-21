@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import cors from 'cors';
-import { getUsers, getUserId, getUserAnimals, postAuthDetails } from '../controllers/usersViaSupabase.js';
+import { getUsers, getUserId, getUserAnimals, postRegisterDetails, postLoginDetails } from '../controllers/usersViaSupabase.js';
 
 const router = express.Router();
 
@@ -26,6 +26,7 @@ router.options('/users', (req, res, next) => {
 router.get('/users', cors(), getUsers);
 router.get('/users/:number', cors(), getUserId);
 router.get('/users/:userId/animals', cors(), getUserAnimals);
-router.post('/users', cors(), postAuthDetails);
+router.post('/users/register', cors(), postRegisterDetails);
+router.post('/users/login', cors(), postLoginDetails);
 
 export default router;

@@ -28,7 +28,7 @@ export async function getUserAnimals(req, res) {
   }
 }
 
-export async function postAuthDetails(req, res) {
+export async function postRegisterDetails(req, res) {
   const userData = req.body;
   try{
     const value = await handleUser(userData)
@@ -36,5 +36,15 @@ export async function postAuthDetails(req, res) {
   }
   catch (err) {
     res.status(500).send("there was an error in signing up ", err.message);
+  }
+ };
+
+ export async function postLoginDetails(req, res) {
+  const userData = req.body;
+  try{
+    res.status(200).json({ message: "Login successful", data: userData })
+  }
+  catch (err) {
+    res.status(500).send(err.message);
   }
  };
