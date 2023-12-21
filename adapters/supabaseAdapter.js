@@ -1,5 +1,7 @@
 import * as dotenv from 'dotenv';
 import { createClient } from '@supabase/supabase-js';
+import { signUserUp, userNotInDb } from "../routes/registration.js";
+
 
 dotenv.config({ path: 'variables.env' });
 const supabase = createClient(
@@ -32,9 +34,9 @@ export async function getAnimalsByUserId(userId) {
     console.error('Error fetching animals', error);
     throw error;
   }
-
   return data;
 }
+
 
 export async function getFriendsForUser(userId) {
   const { data, error } = await supabase.from('users') .select('friends').eq('id',userId).single(); 
@@ -45,3 +47,23 @@ export async function getFriendsForUser(userId) {
 
   return data;
 }
+
+
+
+export async function handleUser(userData) {
+  const {username, email, password} = userData;
+  // userNotInDb(supabase, username);
+  try {
+    const supabaseResponse = await signUserUp(supabase, email, password, username);
+    return supabaseResponse;
+  } 
+  catch (error)
+  {
+    console.error('query error', error);
+    throw error;
+  }
+    
+};
+
+export { supabase };
+

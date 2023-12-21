@@ -1,5 +1,5 @@
-import { getUsersData, getUserIdData, getAnimalsByUserId, getFriendsForUser } from "../adapters/supabaseAdapter.js";
 
+import { getUsersData, getUserIdData, getAnimalsByUserId, handleUser, getFriendsForUser } from "../adapters/supabaseAdapter.js";
 export async function getUsers(req, res) {
   try {
     const data = await getUsersData();
@@ -29,12 +29,11 @@ export async function getUserAnimals(req, res) {
   }
 }
 
+
 export async function getFriends(req, res) {
   try {
     const userId = parseInt(req.params.userId);
     const friendsData = await getFriendsForUser(userId);
-    
-    console.log(friendsData.friends);
     let detailedFriends = {'id':null}
     if(friendsData.friends != null){
 
@@ -50,3 +49,15 @@ export async function getFriends(req, res) {
     res.status(500).send(error.message);
   }
 }
+
+export async function postAuthDetails(req, res) {
+  const userData = req.body;
+  try{
+    const value = await handleUser(userData)
+    res.status(200).json({ message: "Registration successful", data: value })
+  }
+  catch (err) {
+    res.status(500).send(err.message);
+  }
+ };
+
