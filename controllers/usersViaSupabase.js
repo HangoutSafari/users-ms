@@ -1,4 +1,5 @@
-import { getUsersData, getUserIdData, getAnimalsByUserId, handleUser } from "../adapters/supabaseAdapter.js";
+
+import { getUsersData, getUserIdData, getAnimalsByUserId, handleUser, getFriendsForUser } from "../adapters/supabaseAdapter.js";
 export async function getUsers(req, res) {
   try {
     const data = await getUsersData();
@@ -28,6 +29,27 @@ export async function getUserAnimals(req, res) {
   }
 }
 
+
+export async function getFriends(req, res) {
+  try {
+    const userId = parseInt(req.params.userId);
+    const friendsData = await getFriendsForUser(userId);
+    let detailedFriends = {'id':null}
+    if(friendsData.friends != null){
+
+      const friendKeys = Object.keys(friendsData.friends);
+      
+      detailedFriends = await Promise.all(
+        friendKeys.map(async (friendKey) => await getUserIdData(friendKey))
+        );
+      }
+     
+    res.json(detailedFriends);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+}
+
 export async function postAuthDetails(req, res) {
   const userData = req.body;
   try{
@@ -38,3 +60,4 @@ export async function postAuthDetails(req, res) {
     res.status(500).send(err.message);
   }
  };
+

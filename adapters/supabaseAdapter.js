@@ -37,6 +37,19 @@ export async function getAnimalsByUserId(userId) {
   return data;
 }
 
+
+export async function getFriendsForUser(userId) {
+  const { data, error } = await supabase.from('users') .select('friends').eq('id',userId).single(); 
+  if (error) {
+    return {friends:null}
+    throw error;
+  }
+
+  return data;
+}
+
+
+
 export async function handleUser(userData) {
   const {username, email, password} = userData;
   // userNotInDb(supabase, username);
@@ -53,3 +66,4 @@ export async function handleUser(userData) {
 };
 
 export { supabase };
+
