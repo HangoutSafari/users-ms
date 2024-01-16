@@ -1,4 +1,5 @@
 import { getUsersData, getUserIdData, getAnimalsByUserId, handleUser, getFriendsForUser, getEventsOfUser, getEvent } from "../adapters/supabaseAdapter.js";
+import { getAuthDataFrom, getDashboardInfo, getDataFrom, getDataWithFunction } from "../dbHelper.js";
 export async function getUsers(req, res) {
   try {
     const data = await getUsersData();
@@ -78,3 +79,10 @@ export async function getUserEvents(req, res) {
   }
 }
 
+export async function getUserDashboard(req, res) {
+  getDashboardInfo(req, res, "get_user_dashboard", "given_id", req.params.id);
+}
+
+export async function getAnimalDashboard(req, res) {
+  getDashboardInfo(req, res, "get_animal_dashboard", "given_id", req.params.id);
+}

@@ -23,11 +23,11 @@ router.options('/users', (req, res, next) => {
   }
 });
 
-router.get('/users', cors(), getUsers);
-router.get('/users/:number', cors(), getUserId);
-router.get('/users/:userId/animals', cors(), getUserAnimals);
-router.get('/users/:userId/friends', cors(), getFriends)
-router.get('/users/:userId/events', cors(), getUserEvents);
-router.post('/users', cors(), postAuthDetails);
+router.get('/', cors(), getUsers);
+router.get('/:number', cors(), getUserId);
+router.get('/:userId/animals', cors(), getUserAnimals);
+router.get('/:userId/friends', cors(), getFriends)
+router.get('/:userId/events', cors(), getUserEvents);
+router.post('/', cors(), postAuthDetails);
 
 export default router;

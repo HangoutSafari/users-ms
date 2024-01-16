@@ -2,13 +2,15 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: 'variables.env' });
 import indexRouter from './routes/index.js';
+import authRouter from './routes/dashboard.js';
 import { ErrorHandler } from './middleware/errorHandler.js';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/', indexRouter);
+app.use('/users/auth', indexRouter);
+app.use('/users/dashboards', authRouter);
 
 app.use((req, res, next) => {
   try {
