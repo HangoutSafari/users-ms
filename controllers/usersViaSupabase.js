@@ -86,3 +86,7 @@ export async function getUserDashboard(req, res) {
 export async function getAnimalDashboard(req, res) {
   getDashboardInfo(req, res, "get_animal_dashboard", "given_id", req.params.id);
 }
+
+export async function getFeed(req, res) {
+  getDashboardInfo(req, res, "get_feed");
+}
