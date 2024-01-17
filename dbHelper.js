@@ -157,7 +157,7 @@ async function callSupabaseRPC(supabase, functionName, key, value) {
   }
 }
 
-export async function getDashboardInfo(req, res, functionName, key = null, value = null) {
+export async function getServiceFunction(req, res, functionName, key = null, value = null) {
   const session = await getCurrentSession(req);
   if (session['code'] == 1) res.send(`error in session: ${session['error']}`);
   else {
